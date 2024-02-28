@@ -1,8 +1,5 @@
 /*-----------------------------------------------------------------------------------
 
-    Theme Name: Smartshop - Multipurpose eCommerce Template + Admin
-    Description: Multipurpose eCommerce Template + Admin
-    Author: Chitrakoot Web
     Version: 1.1
         
     ---------------------------------- */    

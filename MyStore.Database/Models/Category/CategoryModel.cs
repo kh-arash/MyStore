@@ -1,11 +1,6 @@
-﻿using MyStore.Database.Models.Assets;
-using System;
-using System.Collections.Generic;
+﻿using MyStore.Database.Models.Product;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyStore.Database.Models.Category
 {
@@ -15,7 +10,9 @@ namespace MyStore.Database.Models.Category
         [Required]
         public string Title { get; set; }
         public string? Description { get; set; }
-        public AssetsModel Asset { get; set; }
-        public List<SubCategoryModel> SubCategories { get; set; }
+        public int? ParentId { get; set; }
+        public string? Image { get; set; }
+        public CategoryModel? ParentCategory { get; set; }
+        public List<ProductModel> Products { get; set; }
     }
 }

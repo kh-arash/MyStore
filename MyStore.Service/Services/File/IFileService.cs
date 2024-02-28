@@ -1,4 +1,5 @@
-﻿using MyStore.Service.Models;
+﻿using Microsoft.AspNetCore.Http;
+using MyStore.Service.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace MyStore.Service.Services.File
 {
     public interface IFileService
     {
-        Task<string> Upload(FileUpload file);
+        Task<string> Upload(IFormFile fileUpload);
     }
 }

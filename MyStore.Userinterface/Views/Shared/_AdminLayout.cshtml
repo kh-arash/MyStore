@@ -5,7 +5,7 @@
 <head>
     <!-- metas -->
     <meta charset="utf-8" />
-    <meta name="author" content="Arash" />
+    <meta name="author" content="Chitrakoot Web" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="keywords" content="admin,dashboard" />
@@ -15,14 +15,14 @@
     <title>Smartshop - Admin Dashboard</title>
 
     <!-- common plugins -->
-    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="plugins/icomoon/style.css" />
-    <link rel="stylesheet" href="plugins/uniform/css/default.css" />
-    <link rel="stylesheet" href="plugins/switchery/switchery.min.css" />
+    <link rel="stylesheet" href="~/plugins/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/plugins/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/plugins/icomoon/style.css" />
+    <link rel="stylesheet" href="~/plugins/uniform/css/default.css" />
+    <link rel="stylesheet" href="~/plugins/switchery/switchery.min.css" />
 
     <!-- theme core css -->
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="~/css/admin-styles.css" />
 
 </head>
 
@@ -41,14 +41,13 @@
         <div class="page-sidebar">
             <a class="logo-box" href="index.html">
                 <img src="../img/logos/logo-footer.png" alt="...">
-                <i class="icon-radio_button_unchecked" id="fixed-sidebar-toggle-button"></i>
                 <i class="icon-close" id="sidebar-toggle-button-close"></i>
             </a>
             <div class="page-sidebar-inner">
                 <div class="page-sidebar-menu">
                     <ul class="accordion-menu">
                         <li>
-                            <a href="index.html"> <i class="menu-icon icon-home4"></i><span>Dashboard</span> </a>
+                            <a asp-area="" asp-controller="Dashboard" asp-action="Index"> <i class="menu-icon icon-home4"></i><span>Dashboard</span> </a>
                         </li>
                         <li>
                             <a href="#">
@@ -64,41 +63,8 @@
                                 <i class="menu-icon icon-layers"></i><span>Products</span><i class="accordion-icon fa fa-angle-left"></i>
                             </a>
                             <ul>
-                                <li><a href="products.html">Products</a></li>
-                                <li><a href="product-details.html">Product Details</a></li>
-                                <li><a href="product-cart.html">Product Cart</a></li>
-                                <li><a href="add-products.html">Add Products</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="menu-icon icon-flash_on"></i><span>Orders</span><i class="accordion-icon fa fa-angle-left"></i>
-                            </a>
-                            <ul>
-                                <li><a href="orders.html">Orders</a></li>
-                                <li><a href="order-details.html">Order Details</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="customers.html"> <i class="menu-icon icon-code"></i><span>Customers</span> </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="menu-icon icon-format_list_bulleted"></i><span>Coupons</span><i class="accordion-icon fa fa-angle-left"></i>
-                            </a>
-                            <ul>
-                                <li><a href="coupons.html">Coupons</a></li>
-                                <li><a href="create-coupons.html">Create Coupons</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="menu-icon icon-settings"></i><span>Settings</span><i class="accordion-icon fa fa-angle-left"></i>
-                            </a>
-                            <ul>
-                                <li><a href="staff-members.html">Staff Members</a></li>
-                                <li><a href="add-staff-member.html">Add Staff Members</a></li>
-                                <li><a href="site-settings.html">Site Settings</a></li>
+                                <li><a asp-area="Products" asp-controller="Manage" asp-action="Index">Products</a></li>
+                                <li><a asp-area="Products" asp-controller="Manage" asp-action="Add">Add Products</a></li>
                             </ul>
                         </li>
                         <li class="menu-divider"></li>
@@ -149,55 +115,8 @@
                                 <li><a href="#" id="search-button"><i class="fa fa-search"></i></a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="#" class="right-sidebar-toggle" data-sidebar-id="main-right-sidebar"><i class="fa fa-envelope"></i></a></li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i></a>
-                                    <ul class="dropdown-menu dropdown-lg dropdown-content">
-                                        <li class="drop-title">Notifications<a href="#" class="drop-title-link"><i class="fa fa-angle-right"></i></a></li>
-                                        <li class="slimscroll dropdown-notifications">
-                                            <ul class="list-unstyled dropdown-oc">
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="notification-badge bg-primary"><i class="far fa-image"></i></span>
-                                                        <span class="notification-info">
-                                                            Finished uploading photos to gallery <b>"South Africa"</b>.
-                                                            <small class="notification-date">20:00</small>
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="notification-badge bg-primary"><i class="fa fa-at"></i></span>
-                                                        <span class="notification-info">
-                                                            <b>John Doe</b> mentioned you in a post "Update v1.5".
-                                                            <small class="notification-date">06:07</small>
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="notification-badge bg-danger"><i class="fa fa-bolt"></i></span>
-                                                        <span class="notification-info">
-                                                            4 new special offers from the apps you follow!
-                                                            <small class="notification-date">Yesterday</small>
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="notification-badge bg-success"><i class="fa fa-bullhorn"></i></span>
-                                                        <span class="notification-info">
-                                                            There is a meeting with <b>Ethan</b> in 15 minutes!
-                                                            <small class="notification-date">Yesterday</small>
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
                                 <li class="dropdown user-dropdown">
-                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="img/avatars/user-dropdown.jpg" alt="..." class="rounded-circle"></a>
+                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="img/avatar/01.png" alt="..." class="rounded-circle"></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="#">Profile</a></li>
                                         <li><a href="#">Calendar</a></li>
@@ -290,20 +209,6 @@
                 </div>
             </div>
 
-            <!-- PAGE CHAT RIGHT SIDEBAR
-            ================================================== -->
-            <div class="page-right-sidebar" id="chat-right-sidebar">
-                <div class="page-right-sidebar-inner">
-                    <div class="right-sidebar-top">
-                        <div class="chat-top-info">
-                            <span class="chat-name">Noah</span>
-                            <span class="chat-state">2h ago</span>
-                        </div>
-                        <a href="#" class="right-sidebar-toggle chat-sidebar-close float-end" data-sidebar-id="chat-right-sidebar"><i class="icon-keyboard_arrow_right"></i></a>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
     </div>
@@ -315,27 +220,28 @@
     <!-- ALL JS INCLUDE
     ================================================== -->
     <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="~/plugins/jquery/jquery.min.js"></script>
 
     <!-- popper -->
-    <script src="plugins/popper/js/popper.min.js"></script>
+    <script src="~/plugins/popper/js/popper.min.js"></script>
 
     <!-- bootstrap -->
-    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/plugins/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- slimscroll -->
-    <script src="plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 
     <!-- uniform -->
-    <script src="plugins/uniform/js/jquery.uniform.standalone.js"></script>
+    <script src="~/plugins/uniform/js/jquery.uniform.standalone.js"></script>
 
     <!-- switchery -->
-    <script src="plugins/switchery/switchery.min.js"></script>
+    <script src="~/plugins/switchery/switchery.min.js"></script>
 
     <!-- theme core scripts -->
-    <script src="js/main.js"></script>
+    <script src="~/js/admin-main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
+    <!-- all js include end -->
 </body>
 
 </html>

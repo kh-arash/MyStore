@@ -1,6 +1,17 @@
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.EntityFrameworkCore;
+using MyStore.Database;
+using MyStore.Database.Interfaces;
+using MyStore.Service.Services.File;
+using MyStore.Service.Services.Product;
+using System.Security.AccessControl;
+using System.Security.Principal;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// For Entity Framework
+var configuration = builder.Configuration;
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("MSSqlServer")));
 
 // Add services to the container.
 builder.Services.Configure<RazorViewEngineOptions>(options =>
@@ -11,6 +22,10 @@ builder.Services.Configure<RazorViewEngineOptions>(options =>
 });
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 

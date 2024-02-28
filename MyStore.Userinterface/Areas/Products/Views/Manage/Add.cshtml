@@ -1,0 +1,71 @@
+﻿@using MyStore.Service.Services.Product.ViewModels;
+@model ProductCreateViewModel
+@{
+    ViewData["Title"] = "Add Product";
+    Layout = "_AdminLayout";
+}
+
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        @using (Html.BeginForm("Add", "Manage", FormMethod.Post, new { @class = "needs-validation", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="card card-white">
+                <div class="card-heading clearfix">
+                    <h4 class="card-title">Product information</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="text-danger">
+                            @Html.ValidationSummary(false)
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model=>model.Title)
+                                @Html.TextBoxFor(model=>model.Title, new{@class="form-control",placeholder="Title"})
+                                @Html.ValidationMessageFor(model=>model.Title,"",new{@class="text-danger"})
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model=>model.Model)
+                                @Html.TextBoxFor(model=>model.Model, new{@class="form-control",placeholder="Model"})
+                                @Html.ValidationMessageFor(model=>model.Model,"",new{@class="text-danger"})
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model=>model.Price)
+                                @Html.TextBoxFor(model=>model.Price, new{@class="form-control",placeholder="Price"})
+                                @Html.ValidationMessageFor(model=>model.Price,"",new{@class="text-danger"})
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model=>model.Description)
+                                @Html.TextAreaFor(model=>model.Description, new{@class="form-control",placeholder="Description", rows=3})
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-white mb-1">
+                <div class="card-heading clearfix">
+                    <h4 class="card-title">Media</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <input class="form-control form-control-lg" id="Image" name="Image" type="file">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

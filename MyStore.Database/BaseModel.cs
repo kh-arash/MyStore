@@ -17,8 +17,8 @@ namespace MyStore.Database
         [Required]
         public DateTime CreatedDate { get; set; }
         [Required]
-        public Guid CreatedUser { get; set; }
+        public Guid CreatedUserId { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public Guid? ModifiedUser { get; set; }
+        public Guid? ModifiedUserId { get; set; }
     }
 }

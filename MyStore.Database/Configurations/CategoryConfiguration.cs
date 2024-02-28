@@ -19,7 +19,7 @@ namespace MyStore.Database.Configurations
             builder.Property(e => e.Title).IsUnicode(true);
             builder.Property(e => e.Title).HasMaxLength(100);
 
-            builder.HasMany(e => e.SubCategories).WithOne(e => e.Category).HasForeignKey(e => e.CategoryId);
+            builder.ToTable("Category");
 
         }
     }

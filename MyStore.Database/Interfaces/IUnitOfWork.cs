@@ -7,5 +7,6 @@ namespace MyStore.Database.Interfaces
     {
         public Repository<CategoryModel> CategoryRepository { get; }
         public Repository<ProductModel> ProductRepository { get; }
+        Task Save();
     }
 }

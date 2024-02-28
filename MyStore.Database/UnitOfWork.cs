@@ -39,9 +39,16 @@ namespace MyStore.Database
                 return categoryRepository;
             }
         }
-        public void Save()
+        public async Task Save()
         {
-            _context.SaveChanges();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         protected virtual void Dispose(bool disposing)
         {

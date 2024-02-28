@@ -1,3 +1,76 @@
 ﻿@{
+    ViewData["Title"] = "Products";
+    Layout = "_AdminLayout";
+    //<style src="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.min.css"></style>
+}
 
+<!-- row -->
+<div class="row">
+    <div class="col-lg-12 col-md-12 grid-margin">
+        <div class="card card-white h-100">
+            <div class="card-heading clearfix">
+                <h4 class="card-title">Products</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table mb-0" id="tblProducts">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Model</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>+
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.min.js"></script>
+
+    @* load Datatable *@
+    <script>
+        var jsonTableData = [];
+        var myTable = null;
+
+        $(document).ready(function () {
+            myTable = $('#tblProducts').dataTable({
+                "ajax": "../Products/Manage/LoadData",
+                "processing": true,
+                "searchable": true,
+                "paging": true,
+                "pageLength": 10,
+                "lengthMenu": [10, 25, 50, 100],
+                "columns": [
+                    {
+                        "orderable": false,
+                        "data": null,
+                        "defaultContent": '',
+                        "render": function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { "data": "title", "title": "Title" },
+                    { "data": "model", "title": "Model" },
+                    { "data": "category", "title": "Category" },
+                    { "data": "price", "title": "Price" },
+                    {
+                        "data": null, "render": function (data, row) {
+                            var btnEdit = '<a href="#" class="me-3" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Edit"><i class="far fa-edit text-primary"></i></a>';
+                            var btnDelete = '<a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Delete"><i class="far fa-trash-alt text-danger"></i></a>';
+                            return btnEdit + btnDelete;
+                        }
+                    },
+                ]
+            });
+        });
+    </script>
 }

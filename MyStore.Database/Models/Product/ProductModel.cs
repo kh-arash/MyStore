@@ -1,14 +1,15 @@
-﻿using MyStore.Database.Models.Assets;
-using MyStore.Database.Models.Category;
+﻿using MyStore.Database.Models.Category;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyStore.Database.Models.Product
 {
+    [Table("Product")]
     public class ProductModel:BaseModel
     {
         [Required]
@@ -18,8 +19,9 @@ namespace MyStore.Database.Models.Product
         [Required]
         public string Description { get; set; }
         public string Model { get; set; }
-        public List<AssetsModel> Assets { get; set; }
-        public List<SubCategoryModel> Categories { get; set; }
+        public string Image { get; set; }
+        public List<ProductImagesModel> ProductImages { get; set; }
+        public List<CategoryModel> Categories { get; set; }
 
         public string Name
         {

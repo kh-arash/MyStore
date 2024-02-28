@@ -20,7 +20,11 @@ namespace MyStore.Database.Configurations
             builder.Property(e => e.Description).IsUnicode(true);
             builder.Property(e => e.Description).HasColumnType("ntext");
 
-            builder.HasMany(e => e.Categories).WithMany(e => e.Products);
+            builder.HasMany(e => e.Categories).WithMany(e => e.Products).UsingEntity(join => join.ToTable("ProductCategories"));
+
+            builder.HasMany(e => e.ProductImages).WithOne(e => e.Product).HasForeignKey(e => e.ProductId);
+
+            builder.ToTable("Product");
         }
 
     }

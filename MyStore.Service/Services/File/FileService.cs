@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using MyStore.Service.Models;
 
@@ -15,18 +16,20 @@ namespace MyStore.Service.Services.File
             _environment = environment;
         }
 
-        public async Task<string> Upload(FileUpload file)
+        public async Task<string> Upload(IFormFile fileUpload)
         {
-            var fileUpload = file.File;
             FileStream fileStream;
             string uploadLink = "";
             try
             {
-                if (fileUpload.Length > 0)
+                if (fileUpload != null && fileUpload.Length > 0)
                 {
                     string folderName = "firebaseFiles";
                     string path = Path.Combine(_environment.WebRootPath, $"img/{folderName}");
-                    fileStream = new FileStream(Path.Combine(path, fileUpload.Name), FileMode.Open);
+                    using (fileStream = new FileStream(path, FileMode.Open))
+                    {
+                        await fileUpload.CopyToAsync(fileStream);
+                    }
 
                     var auth = new Firebase.Auth.FirebaseAuthProvider(new Firebase.Auth.FirebaseConfig(_configuration["Firebase:ApiKey"]));
                     var a = await auth.SignInWithEmailAndPasswordAsync(_configuration["Firebase:Username"], _configuration["Firebase:Password"]);

@@ -36,11 +36,11 @@ namespace MyStore.Database
 
             if (orderBy != null)
             {
-                return orderBy(query).ToList();
+                return await orderBy(query).ToListAsync();
             }
             else
             {
-                return query.ToList();
+                return await query.ToListAsync();
             }
         }
 
@@ -51,7 +51,15 @@ namespace MyStore.Database
 
         public async Task Insert(TEntity entity)
         {
-            await dbSet.AddAsync(entity);
+            try
+            {
+                await dbSet.AddAsync(entity);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         public async Task Delete(object id)
