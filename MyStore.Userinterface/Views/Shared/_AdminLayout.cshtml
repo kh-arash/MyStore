@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -40,7 +39,7 @@
         ================================================== -->
         <div class="page-sidebar">
             <a class="logo-box" href="index.html">
-                <img src="../img/logos/logo-footer.png" alt="...">
+                <img src="~/img/logos/logo-footer.png" alt="...">
                 <i class="icon-close" id="sidebar-toggle-button-close"></i>
             </a>
             <div class="page-sidebar-inner">
@@ -54,8 +53,8 @@
                                 <i class="menu-icon icon-inbox"></i><span>Category</span><i class="accordion-icon fa fa-angle-left"></i>
                             </a>
                             <ul>
-                                <li><a href="category.html">Category</a></li>
-                                <li><a href="add-categories.html">Add Categories</a></li>
+                                <li><a asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a></li>
+                                <li><a asp-area="Admin" asp-controller="Category" asp-action="Add">Add Category</a></li>
                             </ul>
                         </li>
                         <li>
@@ -63,8 +62,8 @@
                                 <i class="menu-icon icon-layers"></i><span>Products</span><i class="accordion-icon fa fa-angle-left"></i>
                             </a>
                             <ul>
-                                <li><a asp-area="Products" asp-controller="Manage" asp-action="Index">Products</a></li>
-                                <li><a asp-area="Products" asp-controller="Manage" asp-action="Add">Add Products</a></li>
+                                <li><a asp-area="Admin" asp-controller="Product" asp-action="Index">Products</a></li>
+                                <li><a asp-area="Admin" asp-controller="Product" asp-action="Add">Add Product</a></li>
                             </ul>
                         </li>
                         <li class="menu-divider"></li>
@@ -99,7 +98,7 @@
                         <div class="navbar-header">
                             <div class="logo-sm">
                                 <a href="#" id="sidebar-toggle-button"><i class="fa fa-bars"></i></a>
-                                <a class="logo-box" href="index.html"><img src="../img/logos/logo.png" class="logo" alt="..."></a>
+                                <a class="logo-box" href="index.html"><img src="~/img/logos/logo.png" class="logo" alt="..."></a>
                             </div>
                             <button type="button" class="navbar-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                                 <i class="fa fa-angle-down"></i>
@@ -116,7 +115,7 @@
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="dropdown user-dropdown">
-                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="img/avatar/01.png" alt="..." class="rounded-circle"></a>
+                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="~/img/avatar/01.png" alt="..." class="rounded-circle"></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="#">Profile</a></li>
                                         <li><a href="#">Calendar</a></li>

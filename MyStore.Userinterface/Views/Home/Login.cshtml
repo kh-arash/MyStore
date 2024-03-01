@@ -1,0 +1,147 @@
+﻿@{
+    ViewData["Title"] = "Login / Register";
+    Layout = "_Layout";
+}
+<section class="md">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-1-9 mb-lg-0">
+                <div class="common-block">
+
+                    <div class="inner-title">
+                        <h4 class="mb-0">Login</h4>
+                        <p class="mb-0">Everything is simple with Login.</p>
+                    </div>
+
+                    <form asp-action="Login" asp-controller="Home" method="post">
+
+                        <div class="row">
+
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" class="form-control" name="Email" id="Email" placeholder="Enter your email here">
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label>Password </label>
+                                    <input type="password" class="form-control" name="Password" id="Password" placeholder="Enter your password here">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" name="RememberMe" id="RememberMe">
+                                    <label class="form-check-label" for="RememberMe">Keep me signed in</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 text-start text-md-end">
+                                <a href="/Home/ForgotPassword" class="m-link-muted">Forgot password?</a>
+                            </div>
+
+                        </div>
+
+                        <button type="button" class="butn-style2 mt-4">Login</button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <div class="common-block">
+
+                    <div class="inner-title">
+                        <h4 class="mb-0">Register</h4>
+                        <p class="mb-0">There's lots of fun in Register.</p>
+                    </div>
+
+                    <form asp-action="Register" asp-controller="Home" method="post">
+
+                        <div class="row">
+
+                            <div class="col-sm-6">
+
+                                <div class="form-group">
+                                    <label>Your First Name</label>
+                                    <input type="text" class="form-control" name="FirstName" id="LastName" placeholder="Enter your first name here">
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-6">
+
+                                <div class="form-group">
+                                    <label>Your Last Name</label>
+                                    <input type="text" class="form-control" name="LastName" id="LastName" placeholder="Enter your last name here">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-sm-6">
+
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input type="email" class="form-control" name="Email" id="Email" placeholder="Enter your email here">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-sm-6">
+
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control" name="Password" id="Password" placeholder="Enter your password here">
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-6">
+
+                                <div class="form-group">
+                                    <label>Re-Password</label>
+                                    <input type="password" class="form-control" name="ConfirmPassword" id="ConfirmPassword" placeholder="Enter your re-password here">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="terms-condition">
+                                    <label class="form-check-label" for="terms-condition">I agree to the <a href="#" class="text-primary">Terms &amp; Conditions</a></label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <button type="button" class="butn-style2 mt-4">Register</button>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

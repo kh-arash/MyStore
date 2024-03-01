@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Products";
     Layout = "_AdminLayout";
-    //<style src="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.min.css"></style>
+    <style src="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.min.css"></style>
 }
 
 <!-- row -->
@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-</div>+
+</div>
 
 @section Scripts{
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.min.js"></script>
@@ -43,7 +43,7 @@
 
         $(document).ready(function () {
             myTable = $('#tblProducts').dataTable({
-                "ajax": "../Products/Manage/LoadData",
+                "ajax": "../Admin/Product/LoadData",
                 "processing": true,
                 "searchable": true,
                 "paging": true,

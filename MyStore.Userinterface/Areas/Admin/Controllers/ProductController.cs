@@ -3,13 +3,13 @@ using MyStore.Service.Models;
 using MyStore.Service.Services.Product;
 using MyStore.Service.Services.Product.ViewModels;
 
-namespace MyStore.Userinterface.Areas.Products.Controllers
+namespace MyStore.Userinterface.Areas.Admin.Controllers
 {
-    [Area("Products")]
-    public class ManageController : Controller
+    [Area("Admin")]
+    public class ProductController : Controller
     {
         private readonly IProductService _productService;
-        public ManageController(IProductService productService)
+        public ProductController(IProductService productService)
         {
             _productService = productService;
         }

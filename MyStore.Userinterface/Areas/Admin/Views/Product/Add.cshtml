@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-md-12 grid-margin">
-        @using (Html.BeginForm("Add", "Manage", FormMethod.Post, new { @class = "needs-validation", enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("Add", "Product", FormMethod.Post, new { @class = "needs-validation", enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             <div class="card card-white">
@@ -51,13 +51,13 @@
             </div>
             <div class="card card-white mb-1">
                 <div class="card-heading clearfix">
-                    <h4 class="card-title">Media</h4>
+                    <h4 class="card-title">Main Image</h4>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
                             <div>
-                                <input class="form-control form-control-lg" id="Image" name="Image" type="file">
+                                <input class="form-control form-control-lg" id="Image" name="Image" type="file" accept="image/png, image/jpeg">
                             </div>
                         </div>
                     </div>
