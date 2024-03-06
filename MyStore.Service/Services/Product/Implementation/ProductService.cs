@@ -1,5 +1,6 @@
 ﻿using MyStore.Database.Interfaces;
 using MyStore.Database.Models.Product;
+using MyStore.Database.Models.User;
 using MyStore.Service.Services.File;
 using MyStore.Service.Services.Product.Mapper;
 using MyStore.Service.Services.Product.ViewModels;
@@ -15,6 +16,7 @@ namespace MyStore.Service.Services.Product
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IFileService _fileService;
+
         public ProductService(IUnitOfWork unitOfWork, IFileService fileService)
         {
             _unitOfWork = unitOfWork;
@@ -27,7 +29,8 @@ namespace MyStore.Service.Services.Product
             {
                 var objModel = model.ToModel();
                 objModel.CreatedDate = DateTime.Now;
-                objModel.CreatedUserId = Guid.Parse("af6a6896-6b30-43c6-abbd-33febb129804");
+
+                objModel.CreatedUserId = Guid.Parse(model.UserId);
                 objModel.Image = await _fileService.Upload(model.Image);
 
                 await _unitOfWork.ProductRepository.Insert(objModel);

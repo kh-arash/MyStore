@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Firebase.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MyStore.Database;
+using MyStore.Database.Models.Authentication;
 using MyStore.Database.Models.Authentication.Login;
 using MyStore.Database.Models.Authentication.SignUp;
 using MyStore.Database.Models.User;
@@ -24,12 +26,15 @@ namespace MyStore.WebAPI.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailService _emailService;
         private readonly IUserService _userService;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AuthenticationController(UserManager<ApplicationUser> userManager, IEmailService emailService, IUserService userService)
+        public AuthenticationController(UserManager<ApplicationUser> userManager, IEmailService emailService, IUserService userService, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _emailService = emailService;
             _userService = userService;
+            _signInManager = signInManager;
+
         }
 
         [HttpPost]
@@ -63,7 +68,7 @@ namespace MyStore.WebAPI.Controllers
                 if (result.Succeeded)
                 {
                     return StatusCode(StatusCodes.Status200OK,
-                      new Response { Status = "Success", Message = "Email Verified Successfully" });
+                      new Response { Status = "Success", Message = "Email Verified Successfully", IsSuccess = true });
                 }
             }
             return StatusCode(StatusCodes.Status500InternalServerError,
@@ -77,11 +82,21 @@ namespace MyStore.WebAPI.Controllers
             var result = await _userService.LoginAsync(model);
             if (result != null && result.IsSuccess)
             {
-                return Ok(result);
+                return new JsonResult(result.Result);
             }
 
             return StatusCode(StatusCodes.Status404NotFound,
                 new Response { Status = "Success", Message = $"Invalid user" });
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("logout")]
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return StatusCode(StatusCodes.Status200OK,
+                new Response { Status = "Success", Message = $"User signed out" });
         }
 
         [HttpPost]
@@ -117,7 +132,7 @@ namespace MyStore.WebAPI.Controllers
             if (user != null)
             {
                 var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
-                if(!result.Succeeded)
+                if (!result.Succeeded)
                 {
                     foreach (var error in result.Errors)
                     {
@@ -142,6 +157,62 @@ namespace MyStore.WebAPI.Controllers
             }
             return StatusCode(StatusCodes.Status404NotFound,
                 new Response { Status = "Success", Message = $"Invalid Code" });
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("validate-token")]
+        public async Task<IActionResult> ValidateToken([FromBody] string token)
+        {
+            var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+            if (user != null)
+            {
+                return new JsonResult(new AuthenticationResponse
+                {
+                    IsAuthenticated = true,
+                    User = user,
+                });
+            }
+
+            return StatusCode(StatusCodes.Status404NotFound,
+                new Response { Status = "False", Message = $"Invalid Token" });
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("profile")]
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+            if (user != null)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                return new JsonResult(new LoginResponse
+                {
+                    User = user,
+                    Roles= roles.ToList()
+                });
+            }
+            return StatusCode(StatusCodes.Status404NotFound,
+                new Response { Status = "False", Message = $"Invalid Token" });
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("user-roles")]
+        public async Task<IActionResult> UserRole()
+        {
+            var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+            if (user != null)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                return new JsonResult(new AuthenticationResponse
+                {
+                    Roles = roles.ToList()
+                });
+            }
+            return StatusCode(StatusCodes.Status404NotFound,
+               new Response { Status = "False", Message = $"Role did not found" });
         }
     }
 }

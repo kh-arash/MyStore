@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="text-danger">
-                            @Html.ValidationSummary(false)
+                            @Html.ValidationSummary(true)
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="form-group">
@@ -42,8 +42,15 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="form-group">
+                                @Html.LabelFor(model=>model.CategoryId)
+                                @Html.DropDownListFor(model=>model.CategoryId,ViewBag.Categories as SelectList,"",new {@class="form-control form-select"})
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
                                 @Html.LabelFor(model=>model.Description)
                                 @Html.TextAreaFor(model=>model.Description, new{@class="form-control",placeholder="Description", rows=3})
+                                @Html.ValidationMessageFor(model=>model.Description,"",new{@class="text-danger"})
                             </div>
                         </div>
                     </div>

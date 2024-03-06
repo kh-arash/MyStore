@@ -21,7 +21,7 @@ namespace MyStore.Service.Services.Category.Implementation
             {
                 var objModel = model.ToModel();
                 objModel.CreatedDate = DateTime.Now;
-                objModel.CreatedUserId = Guid.Parse("af6a6896-6b30-43c6-abbd-33febb129804");
+                objModel.CreatedUserId = Guid.Parse(model.UserId);
                 if (model.Image != null)
                     objModel.Image = await _fileService.Upload(model.Image);
 

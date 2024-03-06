@@ -53,33 +53,42 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-9 col-md-6">
-                            <ul class="top-nav ps-0">
-                                <li class="nav-item dropdown">
-                                    <a href="#" data-bs-toggle="dropdown" class="dropdown-toggle"><i class="far fa-user"></i></a>
-                                    <ul class="dropdown-menu p-4">
-                                        <li class="mb-2">
-                                            <div class="media align-items-center">
-                                                <img class="w-40px rounded-circle me-3" src="~/img/avatar/01.png" alt="...">
-                                                <div class="media-body">Nancy Miller</div>
-                                            </div>
+                        @if (ViewBag.Profile != null)
+                        {
+                            <div class="col-9 col-md-6">
+                                <ul class="top-nav ps-0">
+                                    <li class="nav-item dropdown">
+                                        <a href="#" data-bs-toggle="dropdown" class="dropdown-toggle"><i class="far fa-user"></i></a>
+                                        <ul class="dropdown-menu p-4">
+                                            <li class="mb-2">
+                                                <div class="media align-items-center">
+                                                    <img class="w-40px rounded-circle me-3" src="~/img/avatar/01.png" alt="...">
+                                                    <div class="media-body">@(ViewBag.Profile.FirstName + " " + ViewBag.Profile.LastName)</div>
+                                                </div>
 
-                                        </li>
-                                        <li>
-                                            <a href="#" class="dropdown-item">My Profile</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="dropdown-item">Order List</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="dropdown-item">Log Out</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                            </li>
+                                            @if (ViewBag.Profile.Roles != null && ViewBag.Profile.Roles.Contains("Admin"))
+                                            {
+                                                <li>
+                                                    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="dropdown-item">Dashboard</a>
+                                                </li>
+                                            }
+                                            <li>
+                                                <a href="#" class="dropdown-item">My Profile</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="dropdown-item">Order List</a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="Home" asp-action="LogOut" class="dropdown-item">Log Out</a>
+                                            </li>
+                                        </ul>
+                                    </li>
 
-                            </ul>
+                                </ul>
 
-                        </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -125,7 +134,11 @@
                                     <ul class="navbar-nav mx-auto" id="nav" style="display: none;">
 
                                         <li><a href="/Home/Index">Home</a></li>
-                                        <li><a href="/Home/Login">Login / Register</a></li>
+                                        @if (ViewBag.Profile == null)
+                                        {
+                                            <li><a href="/Home/Login">Login</a></li>
+                                            <li><a href="/Home/Register">Register</a></li>
+                                        }
                                     </ul>
                                     <!-- end menu area -->
                                     <!-- attribute navigation -->

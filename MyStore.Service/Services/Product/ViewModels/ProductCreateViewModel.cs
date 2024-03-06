@@ -22,8 +22,8 @@ namespace MyStore.Service.Services.Product.ViewModels
         [Required]
         [DisplayName("Category")]
         public int CategoryId { get; set; }
-        public string? Description { get; set; }
+        public string Description { get; set; }
         public IFormFile Image { get; set; }
-
+        public string? UserId { get; set; }
     }
 }

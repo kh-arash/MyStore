@@ -1,12 +1,18 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using MyStore.Database;
 using MyStore.Database.Interfaces;
 using MyStore.Service.Services.Category.Implementation;
 using MyStore.Service.Services.File;
 using MyStore.Service.Services.Product;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.AccessControl;
+using System.Security.Claims;
 using System.Security.Principal;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,10 +35,12 @@ builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddHttpClient("MyStoreAPI", client =>
+
+builder.Services.AddHttpClient("AuthenticationAPI", client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7045/");
+    client.BaseAddress = new Uri("https://localhost:7045/api/Authentication/");
     client.Timeout = TimeSpan.FromSeconds(60);
 });
 
@@ -47,17 +55,19 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
+
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapAreaControllerRoute(
-    name: "AdminArea",
-    areaName: "Admin",
-    pattern: "{area=Admin}/{controller=Dashboard}/{action=Index}/{id?}");
+
 
 
 app.Run();

@@ -10,5 +10,6 @@ namespace MyStore.Service.Services.Category.ViewModels
         [DisplayName("Parent")]
         public int? ParentId { get; set; }
         public IFormFile? Image { get; set; }
+        public string? UserId { get; set; }
     }
 }

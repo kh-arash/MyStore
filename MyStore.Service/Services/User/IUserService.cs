@@ -1,4 +1,5 @@
 ﻿using MyStore.Database;
+using MyStore.Database.Models.Authentication;
 using MyStore.Database.Models.Authentication.Login;
 using MyStore.Database.Models.Authentication.SignUp;
 using MyStore.Database.Models.User;
@@ -12,6 +13,7 @@ namespace MyStore.Service.Services.User
         Task<ResponseMessage<List<string>>> AssignRoleAsync(List<string> roles, ApplicationUser user);
         Task<ResponseMessage<LoginResponse>> GetJwtTokenAsync(ApplicationUser user);
         Task<ResponseMessage<LoginResponse>> LoginAsync(LoginModel loginModel);
+        Task<ResponseMessage<AuthenticationResponse>> ValidateToken(ApplicationUser user, string token);
         Task<ResponseMessage<LoginResponse>> RenewAccessTokenAsync(LoginResponse tokens);
     }
 }

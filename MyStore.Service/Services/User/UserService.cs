@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using MyStore.Database;
+using MyStore.Database.Models.Authentication;
 using MyStore.Database.Models.Authentication.Login;
 using MyStore.Database.Models.Authentication.SignUp;
 using MyStore.Database.Models.User;
@@ -66,7 +70,9 @@ namespace MyStore.Service.Services.User
                 Email = registerUser.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = registerUser.Email,
-                TwoFactorEnabled = true
+                TwoFactorEnabled = false,
+                FirstName = registerUser.FirstName,
+                LastName = registerUser.LastName,
             };
             var result = await _userManager.CreateAsync(user, registerUser.Password);
             if (result.Succeeded)
@@ -119,7 +125,8 @@ namespace MyStore.Service.Services.User
                     {
                         Token = user.RefreshToken,
                         ExpiryTokenDate = (DateTime)user.RefreshTokenExpiry
-                    }
+                    },
+                    User = user
                 },
 
                 IsSuccess = true,
@@ -136,6 +143,9 @@ namespace MyStore.Service.Services.User
                 var result = await _signInManager.PasswordSignInAsync(user, loginModel.Password, false, true);
                 if (result.Succeeded)
                 {
+                    
+                    await _userManager.ResetAccessFailedCountAsync(user);
+                    await _userManager.SetLockoutEndDateAsync(user, null);
                     return await GetJwtTokenAsync(user);
                 }
                 return new ResponseMessage<LoginResponse>
@@ -155,6 +165,29 @@ namespace MyStore.Service.Services.User
                 };
             }
         }
+
+        public async Task<ResponseMessage<AuthenticationResponse>> ValidateToken(ApplicationUser user, string token)
+        {
+            var result = await _userManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, "", token);
+            if (result)
+                return new ResponseMessage<AuthenticationResponse>
+                {
+                    IsSuccess = true,
+                    StatusCode = 200,
+                    Result = new AuthenticationResponse
+                    {
+                        IsAuthenticated = true,
+                        User = user
+                    }
+                };
+            return new ResponseMessage<AuthenticationResponse>
+            {
+                IsSuccess = false,
+                StatusCode = 404,
+                Message = $"User does not exist."
+            };
+        }
+
 
         public async Task<ResponseMessage<LoginResponse>> RenewAccessTokenAsync(LoginResponse tokens)
         {

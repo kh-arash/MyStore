@@ -1,0 +1,101 @@
+﻿@using MyStore.Database.Models.Authentication.SignUp;
+@model RegisterUserModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "_Layout";
+}
+<section class="md">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="common-block">
+                    <div class="inner-title">
+                        <h4 class="mb-0">Register</h4>
+                        <p class="mb-0">There's lots of fun in Register.</p>
+                    </div>
+
+                    <form asp-action="Register" asp-controller="Home" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="text-danger">
+                                @Html.ValidationSummary(true)
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-6">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model=> model.FirstName)
+                                    @Html.TextBoxFor(model=>model.FirstName, new {@class="form-control", placeholder="Enter your first name here"})
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-6">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model=> model.LastName)
+                                    @Html.TextBoxFor(model=>model.LastName, new {@class="form-control", placeholder="Enter your last name here"})
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-sm-6">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model=> model.Email)
+                                    @Html.EditorFor(model=>model.Email, new { htmlAttributes = new { @class="form-control", placeholder="Enter your email here"}})
+                                    @Html.ValidationMessageFor(model=>model.Email,"", new{@class="text-danger"})
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-sm-6">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model=> model.Password)
+                                    @Html.PasswordFor(model=>model.Password, new {@class="form-control", placeholder="Enter your password here"})
+                                    @Html.ValidationMessageFor(model=>model.Password,"",new{@class="text-danger"})
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-6">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model=> model.ConfirmPassword)
+                                    @Html.PasswordFor(model=>model.ConfirmPassword, new {@class="form-control", placeholder="Enter your confirm password here"})
+                                    @Html.ValidationMessageFor(model=>model.ConfirmPassword,"",new{@class="text-danger"})
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="terms-condition">
+                                    <label class="form-check-label" for="terms-condition">I agree to the <a href="#" class="text-primary">Terms &amp; Conditions</a></label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <button type="submit" class="butn-style2 mt-4">Register</button>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
